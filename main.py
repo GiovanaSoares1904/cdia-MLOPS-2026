@@ -12,5 +12,8 @@ async def root():
     return {
         "restaurante": "Bella Tavola",
         "mensagem": "Bem-vindo à nossa API"
+        "chef": "Marco Rossi",
+        "cidade": "São Paulo",
+        "especialidade": "Massas artesanais"
     }
 
