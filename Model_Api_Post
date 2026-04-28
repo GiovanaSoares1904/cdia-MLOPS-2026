@@ -1,4 +1,7 @@
 from pydantic import BaseModel
+from datetime import datetime
+from typing import Optional
+from pydantic import BaseModel
 
 class PratoInput(BaseModel):
     nome: str
@@ -36,3 +39,28 @@ async def criar_prato(prato: PratoInput):
     }
     pratos.append(novo_prato)
     return novo_prato
+
+
+bebidas = [
+    {"id": 1, "nome": "Água Mineral", "tipo": "agua", "preco": 8.0, "alcoolica": False, "volume_ml": 500, "criado_em": "2024-01-01T00:00:00"},
+    {"id": 2, "nome": "Chianti Classico", "tipo": "vinho", "preco": 120.0, "alcoolica": True, "volume_ml": 750, "criado_em": "2024-01-01T00:00:00"},
+    {"id": 3, "nome": "San Pellegrino", "tipo": "agua", "preco": 15.0, "alcoolica": False, "volume_ml": 750, "criado_em": "2024-01-01T00:00:00"},
+    {"id": 4, "nome": "Suco de Laranja", "tipo": "suco", "preco": 18.0, "alcoolica": False, "volume_ml": 300, "criado_em": "2024-01-01T00:00:00"},
+    {"id": 5, "nome": "Prosecco", "tipo": "vinho", "preco": 95.0, "alcoolica": True, "volume_ml": 750, "criado_em": "2024-01-01T00:00:00"},
+]
+
+class BebidaInput(BaseModel):
+    nome: str
+    tipo: str
+    preco: float
+    alcoolica: bool
+    volume_ml: int
+
+class BebidaOutput(BaseModel):
+    id: int
+    nome: str
+    tipo: str
+    preco: float
+    alcoolica: bool
+    volume_ml: int
+    criado_em: str
