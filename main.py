@@ -1,5 +1,4 @@
 from fastapi import FastAPI
-from pydantic import BaseModel
 
 app = FastAPI(
     title="Bella Tavola API",
@@ -11,9 +10,8 @@ app = FastAPI(
 async def root():
     return {
         "restaurante": "Bella Tavola",
-        "mensagem": "Bem-vindo à nossa API"
+        "mensagem": "Bem-vindo à nossa API",
         "chef": "Marco Rossi",
         "cidade": "São Paulo",
-        "especialidade": "Massas artesanais"
+        "especialidades": "Massas Artesanais"   
     }
-
