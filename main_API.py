@@ -27,17 +27,18 @@ async def buscar_prato(prato_id: int):
             return prato
     return {"mensagem": "Prato não encontrado"}
 
+
 @app.get("/pratos")
 async def listar_pratos(
     categoria: Optional[str] = None,
-    preco_maximo: Optional[float] = None
+    preco_maximo: Optional[float] = None,
+    apenas_disponiveis: bool = False
 ):
     resultado = pratos
-
     if categoria:
         resultado = [p for p in resultado if p["categoria"] == categoria]
-
     if preco_maximo:
         resultado = [p for p in resultado if p["preco"] <= preco_maximo]
-
+    if apenas_disponiveis:
+        resultado = [p for p in resultado if p["disponivel"]]
     return resultado
