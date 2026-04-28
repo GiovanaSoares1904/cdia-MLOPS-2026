@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from typing import Optional
 
 app = FastAPI(
     title="Bella Tavola API",
@@ -25,3 +26,18 @@ async def buscar_prato(prato_id: int):
         if prato["id"] == prato_id:
             return prato
     return {"mensagem": "Prato não encontrado"}
+
+@app.get("/pratos")
+async def listar_pratos(
+    categoria: Optional[str] = None,
+    preco_maximo: Optional[float] = None
+):
+    resultado = pratos
+
+    if categoria:
+        resultado = [p for p in resultado if p["categoria"] == categoria]
+
+    if preco_maximo:
+        resultado = [p for p in resultado if p["preco"] <= preco_maximo]
+
+    return resultado
