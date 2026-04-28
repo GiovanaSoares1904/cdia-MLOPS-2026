@@ -1,0 +1,38 @@
+from pydantic import BaseModel
+
+class PratoInput(BaseModel):
+    nome: str
+    categoria: str
+    preco: float
+    disponivel: bool = True  # valor padrão
+
+@app.post("/pratos")
+async def criar_prato(prato: PratoInput):
+    novo_id = max(p["id"] for p in pratos) + 1
+    novo_prato = {"id": novo_id, **prato.model_dump()}
+    pratos.append(novo_prato)
+    return novo_prato
+
+class PratoInput(BaseModel):
+    nome: str
+    categoria: str
+    preco: float
+
+class PratoOutput(BaseModel):
+    id: int
+    nome: str
+    categoria: str
+    preco: float
+    criado_em: str  # campo gerado pelo servidor, não enviado pelo cliente
+
+@app.post("/pratos", response_model=PratoOutput)
+async def criar_prato(prato: PratoInput):
+    from datetime import datetime
+    novo_id = max(p["id"] for p in pratos) + 1
+    novo_prato = {
+        "id": novo_id,
+        "criado_em": datetime.now().isoformat(),
+        **prato.model_dump()
+    }
+    pratos.append(novo_prato)
+    return novo_prato
