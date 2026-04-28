@@ -17,3 +17,11 @@ pratos = [
 @app.get("/pratos")
 async def listar_pratos():
     return pratos
+
+
+@app.get("/pratos/{prato_id}")
+async def buscar_prato(prato_id: int):
+    for prato in pratos:
+        if prato["id"] == prato_id:
+            return prato
+    return {"mensagem": "Prato não encontrado"}
